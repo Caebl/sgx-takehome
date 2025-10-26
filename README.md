@@ -5,7 +5,7 @@ This project demonstrates the deployment of a **GKE Autopilot cluster** using **
 
 ---
 
-##Architecture
+## Architecture
 
 **Components**
 - **Terraform** – Infrastructure as Code for provisioning a GKE Autopilot cluster.  
@@ -20,7 +20,7 @@ This project demonstrates the deployment of a **GKE Autopilot cluster** using **
 
 ---
 
-##Deployment Steps
+## Deployment Steps
 
 ### 1️ .Prerequisites
 - Google Cloud SDK (`gcloud`)
@@ -30,13 +30,19 @@ This project demonstrates the deployment of a **GKE Autopilot cluster** using **
 
 ### 2️.Configure gcloud
 gcloud auth login --no-launch-browser
+
 gcloud config set project sgx-autopilot-lab
+
 gcloud config set compute/region asia-southeast1
+
 
 ### 3.️Terraform Deployment
 cd ~/sgx-takehome/terraform
+
 terraform init
+
 terraform apply -auto-approve -var="project_id=sgx-autopilot-lab"
+
 
 ### 4️.Connect to the GKE Cluster
 gcloud container clusters get-credentials sgx-autopilot --region asia-southeast1 --project sgx-autopilot-lab
@@ -46,17 +52,20 @@ kubectl apply -f manifests/whoami.yaml
 
 ---
 
-###Verification Commands
+## Verification Commands
 # 1.Cluster details
 kubectl cluster-info
+
 kubectl config current-context
 
 # 2.Namespaces and nodes
 kubectl get ns
+
 kubectl get nodes
 
 # 3.App deployment
 kubectl get deploy,po
+
 kubectl get svc whoami-svc
 
 # 4.Connectivity test
@@ -70,7 +79,7 @@ kubectl get po -A
 
 ---
 
-###Monitoring Setup
+## Monitoring Setup
 | Category                | Implementation                                                                                                                                                                                          |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Metrics**             | Used Cloud Monitoring’s *Kubernetes Container* metrics (`CPU usage time`, `Memory usage`). Filtered by `pod_name=whoami` and aggregated by mean.                                                        |
@@ -81,12 +90,12 @@ kubectl get po -A
 
 ---
 
-###Teardown
+## Teardown
 terraform destroy -auto-approve -var="project_id=sgx-autopilot-lab"
 
 ---
 
-###Repository Structure
+## Repository Structure
 sgx-takehome/
 ├── terraform/
 │   ├── main.tf.json
@@ -104,7 +113,7 @@ sgx-takehome/
 
 ---
 
-###Summary
+## Summary
 
 Infrastructure as Code – Terraform for full GKE setup
 
@@ -120,3 +129,4 @@ Validation – kubectl and curl confirm functionality
 Author: Abel Correya
 Date: October 2025
 Location: Singapore
+
