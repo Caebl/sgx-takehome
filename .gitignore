@@ -22,3 +22,5 @@ Thumbs.db
 *.log
 
 # Ignore nothing else — keep Evidences and all .tf files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
