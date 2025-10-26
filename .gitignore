@@ -25,3 +25,7 @@ Thumbs.db
 # Ignore nothing else — keep Evidences and all .tf files
 terraform/.terraform/
 terraform/.terraform.lock.hcl
+
+# IDE and virtual env folders
+.idea/
+venv/
