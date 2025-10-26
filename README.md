@@ -26,10 +26,9 @@ This project demonstrates the deployment of a **GKE Autopilot cluster** using **
 - Google Cloud SDK (`gcloud`)
 - Terraform ≥ 1.6
 - kubectl
-- A Google Cloud project with GKE and IAM APIs enabled
+- A Google Cloud project with billing enabled (e.g., `sgx-autopilot-lab`) and GKE and IAM APIs enabled
 
 ### 2️.Configure gcloud
-```bash
 gcloud auth login --no-launch-browser
 gcloud config set project sgx-autopilot-lab
 gcloud config set compute/region asia-southeast1
@@ -45,42 +44,47 @@ gcloud container clusters get-credentials sgx-autopilot --region asia-southeast1
 ### 5.Deploy the Application
 kubectl apply -f manifests/whoami.yaml
 
+---
 
 ###Verification Commands
-# Cluster details
+# 1.Cluster details
 kubectl cluster-info
 kubectl config current-context
 
-# Namespaces and nodes
+# 2.Namespaces and nodes
 kubectl get ns
 kubectl get nodes
 
-# App deployment
+# 3.App deployment
 kubectl get deploy,po
 kubectl get svc whoami-svc
 
-# Connectivity test
+# 4.Connectivity test
 curl http://<EXTERNAL-IP>
 
-# Detailed pod info
+# 5.Detailed pod info
 kubectl describe pod -l app=whoami
 
-# System-wide health
+# 6.System-wide health
 kubectl get po -A
 
+---
 
 ###Monitoring Setup
 | Category                | Implementation                                                                                                                                                                                          |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Metrics**             | Used Cloud Monitoring’s *Kubernetes Container* metrics (`CPU usage time`, `Memory usage`). Filtered by `pod_name=whoami` and aggregated by mean.                                                        |
-| **Dashboards**          | Created **SGX GKE Monitoring** dashboard with:<br>• Combined CPU & Memory line chart<br>• **Whoami Uptime Status** scorecard (green/red thresholds)<br>• **Pod Phase Status** chart showing pod states. |
+| **Dashboards**          | Created **SGX GKE Monitoring** dashboard with:Combined CPU & Memory line chart **Whoami Uptime Status** scorecard (green/red thresholds) **Pod Phase Status** chart showing pod states.                 |
 | **Uptime Checks**       | Configured HTTP uptime check on `whoami-svc` external IP (`http://<EXTERNAL-IP>`). Monitored 1-minute intervals for 200 OK response.                                                                    |
 | **Pod Health**          | Used Prometheus metric `prometheus.googleapis.com/kube_pod_status_phase/gauge`, grouped by `phase` (`Running`, `Pending`, `Failed`).                                                                    |
-| **Future Enhancements** | Add alerting policy for uptime check failures, 99.9% SLO dashboard, and Workload Identity integration.                                                                                           |
+| **Future Enhancements** | Add alerting policy for uptime check failures, 99.9% SLO dashboard, and Workload Identity integration.                                                                                                  |
+
+---
 
 ###Teardown
 terraform destroy -auto-approve -var="project_id=sgx-autopilot-lab"
 
+---
 
 ###Repository Structure
 sgx-takehome/
@@ -89,16 +93,16 @@ sgx-takehome/
 │   ├── variables.tf.json
 │   ├── providers.tf.json
 │   ├── versions.tf.json
-│   └── output.tf.json
-├── manifests/
-│   └── whoami.yaml
+│   ├── output.tf.json
+│   ├── manifests/
+│       └── whoami.yaml
 ├── README.md
-└── screenshots/
-    ├── dashboard.png
-    ├── kubectl-get-pods.png
-    └── uptime-check.png
+└── Evidences/
+    ├── Dashboard.png
+    ├── CLI kubectl evidences.png
+    └── Browser Evidence.png
 
-
+---
 
 ###Summary
 
