@@ -53,28 +53,28 @@ kubectl apply -f manifests/whoami.yaml
 ---
 
 ## Verification Commands
-# 1.Cluster details
+### 1.Cluster details
 kubectl cluster-info
 
 kubectl config current-context
 
-# 2.Namespaces and nodes
+### 2.Namespaces and nodes
 kubectl get ns
 
 kubectl get nodes
 
-# 3.App deployment
+#### 3.App deployment
 kubectl get deploy,po
 
 kubectl get svc whoami-svc
 
-# 4.Connectivity test
-curl http://<EXTERNAL-IP>
+#### 4.Connectivity test
+curl `http://<EXTERNAL-IP>`
 
-# 5.Detailed pod info
+#### 5.Detailed pod info
 kubectl describe pod -l app=whoami
 
-# 6.System-wide health
+#### 6.System-wide health
 kubectl get po -A
 
 ---
@@ -87,6 +87,10 @@ kubectl get po -A
 | **Uptime Checks**       | Configured HTTP uptime check on `whoami-svc` external IP (`http://<EXTERNAL-IP>`). Monitored 1-minute intervals for 200 OK response.                                                                    |
 | **Pod Health**          | Used Prometheus metric `prometheus.googleapis.com/kube_pod_status_phase/gauge`, grouped by `phase` (`Running`, `Pending`, `Failed`).                                                                    |
 | **Future Enhancements** | Add alerting policy for uptime check failures, 99.9% SLO dashboard, and Workload Identity integration.                                                                                                  |
+
+### Import monitoring into GCP
+
+gcloud monitoring dashboards create --config-from-file="monitoring/SGX GKE monitoring.json"
 
 ---
 
