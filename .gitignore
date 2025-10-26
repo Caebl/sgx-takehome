@@ -1,0 +1,24 @@
+# Terraform local state
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/crash.log
+
+# Sensitive variables (if added later)
+terraform/*.tfvars
+terraform/*.tfvars.json
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+*~
+
+# Logs
+*.log
+
+# Ignore nothing else — keep Evidences and all .tf files
