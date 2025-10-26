@@ -105,6 +105,8 @@ sgx-takehome/
 │   ├── output.tf.json
 │   ├── manifests/
 │       └── whoami.yaml
+├── monitoring/
+│   ├── SGX GKE monitoring.json
 ├── README.md
 └── Evidences/
     ├── Dashboard.png
