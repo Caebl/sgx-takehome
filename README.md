@@ -31,6 +31,8 @@ This project demonstrates the deployment of a **GKE Autopilot cluster** using **
 ### 2️.Configure gcloud
 gcloud auth login --no-launch-browser
 
+gcloud auth application-default login
+
 gcloud config set project sgx-autopilot-lab
 
 gcloud config set compute/region asia-southeast1
